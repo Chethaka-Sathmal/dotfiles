@@ -1,5 +1,8 @@
 [config]
 
+[config.custom_colors]
+primary = { color = "#181818", blend = false }
+
 [templates.kitty]
 input_path = '~/.config/matugen/templates/kitty-colors.conf'
 output_path = '~/.config/kitty/colors-matugen.conf'

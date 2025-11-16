@@ -21,6 +21,7 @@ echo "Monitoring $SETTINGS_FILE for changes..."
 echo "Press Ctrl+C to stop."
 
 # Function to apply the theme based on the current settings
+# Function to apply the theme based on the current settings
 apply_theme() {
     # Check if the settings file exists
     if [ ! -f "$SETTINGS_FILE" ]; then
@@ -28,32 +29,13 @@ apply_theme() {
         return 1
     fi
 
-    # Extract the value of gtk-application-prefer-dark-theme
-    # We use grep to find the line and awk to get the value after the '='
-    THEME_PREF=$(grep -E '^gtk-application-prefer-dark-theme=' "$SETTINGS_FILE" | awk -F'=' '{print $2}')
-
-    if [ -z "$THEME_PREF" ]; then
-        echo "Warning: 'gtk-application-prefer-dark-theme' setting not found in $SETTINGS_FILE. Skipping theme application."
-        return 0
-    fi
-
-    if [[ "$THEME_PREF" == "1" || "$THEME_PREF" == "true" ]]; then
-        echo "Detected dark theme preference (gtk-application-prefer-dark-theme=1/true). Applying dark matugen theme..."
-        $HOME/.local/bin/matugen image $(cat ~/.cache/ml4w/hyprland-dotfiles/current_wallpaper)
-        $HOME/.config/nwg-dock-hyprland/launch.sh &
-        $HOME/.config/waybar/launch.sh &
-        $HOME/.config/hypr/scripts/gtk.sh &
-        swaync-client -rs
-    elif [[ "$THEME_PREF" == "0" || "$THEME_PREF" == "false" ]]; then
-        echo "Detected light theme preference (gtk-application-prefer-dark-theme=0/false). Applying light matugen theme..."
-        $HOME/.local/bin/matugen image $(cat ~/.cache/ml4w/hyprland-dotfiles/current_wallpaper) -m "light"
-        $HOME/.config/nwg-dock-hyprland/launch.sh &
-        $HOME/.config/waybar/launch.sh &
-        $HOME/.config/hypr/scripts/gtk.sh &
-        swaync-client -rs
-    else
-        echo "Warning: Unexpected value for gtk-application-prefer-dark-theme: $THEME_PREF. Expected 0/1/true/false. Skipping theme application."
-    fi
+    # Always use dark mode
+    echo "Applying dark matugen theme..."
+    $HOME/.local/bin/matugen image $(cat ~/.cache/ml4w/hyprland-dotfiles/current_wallpaper) -m "dark"
+    $HOME/.config/nwg-dock-hyprland/launch.sh &
+    $HOME/.config/waybar/launch.sh &
+    $HOME/.config/hypr/scripts/gtk.sh &
+    swaync-client -rs
 }
 
 # Loop indefinitely, reading output from inotifywait

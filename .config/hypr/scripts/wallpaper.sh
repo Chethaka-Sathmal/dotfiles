@@ -129,12 +129,11 @@ THEME_PREF=$(grep -E '^gtk-application-prefer-dark-theme=' "$SETTINGS_FILE" | aw
 # Execute matugen
 # -----------------------------------------------------
 
-_writeLog "Execute matugen with $used_wallpaper"
-if [ "$THEME_PREF" -eq 1 ]; then
+if [ -f ~/.config/ml4w/settings/matugen_enabled ]; then
+    _writeLog "Execute matugen with $used_wallpaper"
     $HOME/.local/bin/matugen image $used_wallpaper -m "dark"
-else
-    $HOME/.local/bin/matugen image $used_wallpaper -m "light"
 fi
+
 
 # -----------------------------------------------------
 # Reload Waybar
