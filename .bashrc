@@ -27,9 +27,13 @@ unset rc
 # -----------------------------------------------------
 # Alias by Chethaka
 # -----------------------------------------------------
+alias ls="eza -a --icons=always"
+alias ll="eza -al --icons=always"
+alias tree='eza -a --tree --icons=always'
+alias cp="cp -i"
+alias mv="mv -i"
 alias cl=clear
 alias nv=nvim
 alias vim=nvim
-alias ls="ls -a"
 alias ":q"=exit
 
