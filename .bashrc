@@ -37,3 +37,6 @@ alias nv=nvim
 alias vim=nvim
 alias ":q"=exit
 
+
+# opencode
+export PATH=/home/csathmal/.opencode/bin:$PATH
