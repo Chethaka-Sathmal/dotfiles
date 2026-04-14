@@ -32,6 +32,8 @@ vim.opt.ttyfast = true                -- Speed up scrolling in Vim
 -- vim.opt.swapfile = false           -- disable creating swap file
 -- vim.opt.backupdir = "~/.cache/vim" -- Directory to store backup files.
 vim.opt.wrap = false                  -- Disable wrapping by default
+vim.opt.splitright = true             -- Vertical splits open to the right
+vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro' -- Set Line numbers to netrw
 
 -- Highlight groups
 vim.api.nvim_set_hl(0, "NonText", { bg = "NONE" })
