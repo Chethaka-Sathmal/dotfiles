@@ -36,7 +36,8 @@ alias cl=clear
 alias nv=nvim
 alias vim=nvim
 alias ":q"=exit
-
+alias oc=opencode
+alias ff=fastfetch
 
 # opencode
 export PATH=/home/csathmal/.opencode/bin:$PATH
