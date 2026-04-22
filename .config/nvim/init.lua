@@ -33,6 +33,11 @@ vim.opt.ttyfast = true                -- Speed up scrolling in Vim
 -- vim.opt.backupdir = "~/.cache/vim" -- Directory to store backup files.
 vim.opt.wrap = false                  -- Disable wrapping by default
 vim.opt.splitright = true             -- Vertical splits open to the right
+vim.opt.list = true                   -- Enable the list mode (shows the hidden characters)
+vim.opt.listchars = {
+  space = '·',
+}
+vim.api.nvim_set_hl(0, "Whitespace", { fg = "#444444" })
 vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro' -- Set Line numbers to netrw
 
 -- Highlight groups
