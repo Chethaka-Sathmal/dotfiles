@@ -39,7 +39,6 @@ alias ":q"=exit
 alias oc=opencode
 alias ff=fastfetch
 alias ws="cd ~/workspace"
-alias zed="open -a /Applications/Zed.app -n"
 
 # opencode
 export PATH=/home/csathmal/.opencode/bin:$PATH
