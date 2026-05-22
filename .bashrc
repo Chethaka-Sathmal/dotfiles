@@ -38,7 +38,16 @@ alias vim=nvim
 alias ":q"=exit
 alias oc=opencode
 alias ff=fastfetch
-alias ws="cd ~/workspace"
+alias cddev="cd ~/workspace/development"
+alias refresh="source ~/.bashrc"
 
 # opencode
 export PATH=/home/csathmal/.opencode/bin:$PATH
+
+#go
+export PATH=$PATH:/usr/local/go/bin
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export EDITOR=nvim
