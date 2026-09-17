@@ -1,0 +1,24 @@
+# -----------------------------------------------------
+# Alias by Chethaka
+# -----------------------------------------------------
+alias ls="eza -a --icons=always"
+alias lsa="eza -a --icons=always"
+alias ll="eza -al --icons=always"
+alias lla="eza -al --icons=always"
+alias tree='eza -a --tree --icons=always'
+alias cp="cp -i"
+alias mv="mv -i"
+alias cl=clear
+alias cls='command clear && printf "\e[3J"'
+alias vi=nvim
+alias nv=nvim
+alias vim=nvim
+alias ":q"=exit
+alias oc=opencode
+alias ff=fastfetch
+alias cddev="cd ~/code-root/development"
+alias cdsb="cd ~/code-root/sandbox"
+alias refreshb="source ~/.bashrc"
+alias refreshz="source ~/.zshrc"
+alias refresh="source ~/.bashrc; source ~/.zshrc"   
+

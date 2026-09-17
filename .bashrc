@@ -24,22 +24,9 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-# -----------------------------------------------------
-# Alias by Chethaka
-# -----------------------------------------------------
-alias ls="eza -a --icons=always"
-alias ll="eza -al --icons=always"
-alias tree='eza -a --tree --icons=always'
-alias cp="cp -i"
-alias mv="mv -i"
-alias cl=clear
-alias nv=nvim
-alias vim=nvim
-alias ":q"=exit
-alias oc=opencode
-alias ff=fastfetch
-alias cddev="cd ~/workspace/development"
-alias refresh="source ~/.bashrc"
+
+# Change the bash prompt, push the cursor line below
+# PS1="[\[\e[32m\]\u\[\e[0m\]@\[\e[34m\]\h\[\e[0m\] \W]\n\$ "
 
 # opencode
 export PATH=/home/csathmal/.opencode/bin:$PATH
@@ -51,3 +38,17 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export EDITOR=nvim
+
+# pnpm
+export PNPM_HOME="/home/csathmal/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+. "/home/csathmal/.deno/env"
+
+# Custom config 
+[ -f "$HOME/.dotfiles/.aliases" ] && . "$HOME/.dotfiles/.aliases" 
+
+[ -f "/home/csathmal/.ghcup/env" ] && . "/home/csathmal/.ghcup/env" # ghcup-envexport PATH="$HOME/.local/bin:$PATH"
