@@ -1,0 +1,54 @@
+# ~/.dotfiles/.exports
+#
+# Shared, POSIX-sh-compatible PATH/env setup sourced by BOTH .bashrc and
+# .zshrc, so the two shells never drift out of sync. Keep this file
+# portable: no bash-isms ([[ ]], arrays) and no zsh-isms.
+
+# Personal bin dirs
+case ":$PATH:" in
+  *":$HOME/.local/bin:$HOME/bin:"*) ;;
+  *) export PATH="$HOME/.local/bin:$HOME/bin:$PATH" ;;
+esac
+
+export EDITOR=nvim
+
+# opencode
+case ":$PATH:" in
+  *":/home/csathmal/.opencode/bin:"*) ;;
+  *) export PATH="/home/csathmal/.opencode/bin:$PATH" ;;
+esac
+
+# go
+case ":$PATH:" in
+  *":/usr/local/go/bin:"*) ;;
+  *) export PATH="$PATH:/usr/local/go/bin" ;;
+esac
+
+# nvm - lazy-loaded. nvm.sh unconditionally runs `nvm_auto use` at the end
+# of the file every time it's sourced (resolves + switches to the default
+# Node version), which costs ~400ms per shell startup whether or not the
+# shell ever touches Node. These stubs defer that cost to the first actual
+# call to nvm/node/npm/npx, then behave exactly like the real commands.
+export NVM_DIR="$HOME/.nvm"
+_nvm_lazy_load() {
+  unset -f nvm node npm npx corepack _nvm_lazy_load
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+}
+nvm()      { _nvm_lazy_load; nvm "$@"; }
+node()     { _nvm_lazy_load; node "$@"; }
+npm()      { _nvm_lazy_load; npm "$@"; }
+npx()      { _nvm_lazy_load; npx "$@"; }
+corepack() { _nvm_lazy_load; corepack "$@"; }
+
+# pnpm
+export PNPM_HOME="/home/csathmal/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+
+# deno
+[ -f "$HOME/.deno/env" ] && . "$HOME/.deno/env"
+
+# ghcup / cabal
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env"
