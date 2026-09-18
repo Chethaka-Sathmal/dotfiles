@@ -85,6 +85,12 @@ source "$ZSH/oh-my-zsh.sh"
 bindkey -v
 export KEYTIMEOUT=1   # ~10ms ESC->normal-mode delay instead of zsh's ~400ms default
 
+# zsh's vicmd map binds `:` to `execute-named-cmd` by default (type the name
+# of a zle widget to run) - NOT vim's ex-command mode. Coming from vim/nvim
+# muscle memory it's a confusing trap (`:q` types into it and goes nowhere,
+# since no widget is named "q"). Unbind it so `:` is just a no-op there.
+bindkey -M vicmd -r ':'
+
 # Cursor shape follows vi mode: block in normal mode, beam in insert mode.
 # NOTE: must be defined+registered (`zle -N`) BEFORE the `starship init zsh`
 # eval near the bottom - starship detects a pre-existing zle-keymap-select
@@ -93,14 +99,15 @@ export KEYTIMEOUT=1   # ~10ms ESC->normal-mode delay instead of zsh's ~400ms def
 # after the Prompt section.
 function zle-keymap-select {
   case $KEYMAP in
-    vicmd)      print -n '\e[1 q' ;;  # blinking block = normal mode
-    viins|main) print -n '\e[5 q' ;;  # blinking beam  = insert mode
+    vicmd)      print -n '\e[1 q'; export STARSHIP_VI_MODE='NORMAL' ;;  # blinking block = normal mode
+    viins|main) print -n '\e[5 q'; export STARSHIP_VI_MODE='INSERT' ;;  # blinking beam  = insert mode
   esac
 }
 zle -N zle-keymap-select
 
 function zle-line-init {
   print -n '\e[5 q'   # always start a fresh prompt line in insert/beam
+  export STARSHIP_VI_MODE='INSERT'
 }
 zle -N zle-line-init
 

@@ -3,62 +3,107 @@
 add_newline = true
 command_timeout = 700
 
-format = """
-$username$hostname$directory$git_branch$git_status$nodejs$golang$rust$python$docker_context$cmd_duration
+format = """$username$hostname$directory$git_branch$git_status
 $character"""
+right_format = """$nodejs$golang$rust$python$package$docker_context$aws$gcloud$azure$kubernetes$terraform"""
 
 [username]
-show_always = false
-format = "[$user]($style) "
+show_always = true
+format = "[$user ]($style)"
+style_user = "bold green"
+style_root = "bold red"
 
 [hostname]
 ssh_only = true
-format = "on [$hostname](bold red) "
+format = "[at $hostname](bold green) "
 
 [directory]
+format = "[$path]($style)[$read_only]($read_only_style) "
+style = "bold cyan"
+read_only = " (ro)"
+read_only_style = "bold red"
 truncation_length = 4
 truncate_to_repo = true
-style = "bold cyan"
-format = "[$path]($style)[$read_only]($read_only_style) "
 
 [git_branch]
-symbol = " "
-format = "[$symbol$branch]($style) "
+format = "[on $branch]($style) "
 style = "bold purple"
 
 [git_status]
-format = "[$all_status$ahead_behind]($style) "
+format = "[($all_status$ahead_behind)]($style) "
 style = "bold red"
+conflicted = "U${count} "
+ahead = ">${count} "
+behind = "<${count} "
+diverged = "<>${count} "
+untracked = "?${count} "
+stashed = "H${count} "
+modified = "M${count} "
+staged = "A${count} "
+renamed = "R${count} "
+deleted = "D${count} "
 
-[cmd_duration]
-min_time = 2000
-format = "took [$duration](bold yellow) "
+# Vi mode is now shown separately via env_var.STARSHIP_VI_MODE (set in
+# .zshrc's zle-keymap-select), so the character itself stays a plain "$"
+# regardless of vi mode - only its color changes on command success/error.
+[env_var.STARSHIP_VI_MODE]
+variable = "STARSHIP_VI_MODE"
+default = "INSERT"
+format = "[$env_value]($style) "
+style = "bold yellow"
+
+[character]
+success_symbol = "[\\$](bold green)"
+error_symbol = "[\\$](bold red)"
+vimcmd_symbol = "[vi\\$](bold green)"
+vimcmd_replace_one_symbol = "[vi\\$](bold green)"
+vimcmd_replace_symbol = "[vi\\$](bold green)"
+vimcmd_visual_symbol = "[vi\\$](bold green)"
 
 [nodejs]
-symbol = " "
-format = "[$symbol($version )]($style)"
+format = "[node $version]($style) "
+style = "bold green"
 
 [golang]
-symbol = " "
-format = "[$symbol($version )]($style)"
+format = "[go $version]($style) "
+style = "bold cyan"
 
 [rust]
-symbol = " "
-format = "[$symbol($version )]($style)"
+format = "[rust $version]($style) "
+style = "bold red"
 
 [python]
-symbol = " "
-format = "[$symbol($version )]($style)"
+format = "[python $version]($style) "
+style = "bold yellow"
+
+[package]
+disabled = false
+format = "[pkg $version]($style) "
+style = "bold blue"
 
 [docker_context]
-symbol = " "
-format = "[$symbol$context]($style) "
+format = "[docker $context]($style) "
+style = "bold blue"
 
-# Vi-mode aware prompt character - complements the cursor-shape indicator in .zshrc
-[character]
-success_symbol = "[❯](bold green)"
-error_symbol = "[❯](bold red)"
-vimcmd_symbol = "[❮](bold green)"
-vimcmd_replace_one_symbol = "[❮](bold purple)"
-vimcmd_replace_symbol = "[❮](bold purple)"
-vimcmd_visual_symbol = "[❮](bold yellow)"
+[aws]
+format = "[aws $profile(\\($region\\))]($style) "
+style = "bold yellow"
+
+[gcloud]
+format = "[gcloud $account(@$domain)(\\($project\\))]($style) "
+style = "bold blue"
+
+[azure]
+disabled = false
+format = "[azure(\\($subscription\\))]($style) "
+style = "bold blue"
+
+[kubernetes]
+disabled = false
+format = "[k8s $context( $namespace)]($style) "
+style = "bold red"
+
+[terraform]
+disabled = false
+format = "[tf $workspace]($style) "
+style = "bold purple"
